@@ -13,5 +13,4 @@ for folder in os.listdir(sciezka):
         
 final_df=close_df.rename(columns={"HMM Profile":"HMM_Profile_bakterie1", "Profile Length":"Profile_Lenght", "Gene ID":"Gene_ID", "Gene Length":"Gene_Length", "E Value":"E_Value", "Profile Start":"Profile_Start", "Profile End":"Profile_End", "Gene Start":"Gene_Start", "Gene End":"Gene_End"})
 
-# zliczenie liczby rodzin białek w danej grupie organizmów
-final_df.HMM_Profile_bakterie1.value_counts()
+# final_df.HMM_Profile_bakterie1.value_counts()
