@@ -1,0 +1,27 @@
+#Pobrane wcześniej dane z ncbi_datasets będą umieszczone w folderach. Aby ułatwić dalsze segregowanie można użyć skryptu który nazwie każdy plik fasta odpowiadającemu mu identyfiaktorowi genomu. 
+
+#!/bin/bash
+
+# Loop through each folder in the current directory
+for folder in */; do
+    # Check if the current item is a directory
+    if [ -d "$folder" ]; then
+        # Find the .faa file in the current folder
+        file=$(find "$folder" -maxdepth 1 -type f -name "*.faa")
+
+        # Check if the file exists
+        if [ -n "$file" ]; then
+            # Extract the base name of the folder
+            base_name=$(basename "$folder")
+
+            # Move the .faa file to the current directory with the folder name as its name
+            mv "$file" "$base_name.faa"
+
+            echo "File from folder $base_name extracted and renamed to $base_name.faa"
+        else
+            echo "No .faa file found in folder $folder"
+        fi
+    fi
+done
+
+#Później należy usunąc puste foldery jakie zostały w katologu. Można użyć do tego porstej komendy: find -not -name "*.faa" -exec rm -r {} +
