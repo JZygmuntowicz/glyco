@@ -1,0 +1,19 @@
+#Skrypt pobiera proteomy bakterii, których tax_id zawarty jest w pliku 'tax_bioengine.txt'. Dodatkowo numeruje każdy plik.
+#Pobrane dane są w formacie .zip i należy je rozpakować. Po rozpakowaniu automatycznie przeniosą się do katalogu ncbi_datasets/data 
+
+#!/bin/bash
+
+#Aby pobrać genomy z bazy NCBI, należy na condzie zainstalować program ncbi_datasets (s)
+
+CONDA_PREFIX="/home/users/jzygmuntowicz/anaconda3/etc/profile.d/conda.sh"
+. $CONDA_PREFIX
+conda activate ncbi_datasets
+
+counter=1
+
+while IFS= read -r line ; do
+    echo "$line"
+    filename="${counter}.zip"  
+    datasets download genome taxon "$line" --assembly-source RefSeq --no-progressbar --include protein --filename "$filename"
+    ((counter++)) 
+done < tax_bioengie.txt
